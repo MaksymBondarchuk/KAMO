@@ -15,8 +15,10 @@ namespace KAMO
         {
             I = i;
             J = j;
-            Matrix = new double[size * 30, size * 30];
-            
+            //Matrix = new double[size * 30, size * 30];
+            Matrix = new double[10, 10];
+            FillMatrix();
+
             Circuit = new Circuit(i, j, size);
         }
 
@@ -52,7 +54,16 @@ namespace KAMO
             {
                 var sbLine = new StringBuilder();
                 for (var j = 0; j < Matrix.GetLength(1); j++)
-                    sbLine.Append($"{Matrix[i, j],16:N2}");
+                {
+                    if (Circuit.ContainsPoint(i, j))
+                    {
+                        sbLine.Append($"*{Matrix[i, j],-15:N2}");
+                    }
+                    else
+                    {
+                        sbLine.Append($" {Matrix[i, j],-15:N2}");
+                    }
+                }
                 sb.AppendLine(sbLine.ToString());
             }
             return sb.ToString();

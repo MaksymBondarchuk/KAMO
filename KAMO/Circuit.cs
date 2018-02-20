@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace KAMO
 {
@@ -12,8 +13,8 @@ namespace KAMO
         private readonly int _matrixJ;
         private readonly int _matrixSize;
 
-        private List<int> MyI = new List<int>();
-        private List<int> MyJ = new List<int>();
+        private readonly List<int> _myI = new List<int>();
+        private readonly List<int> _myJ = new List<int>();
 
         public Circuit(int matrixI, int matrixJ, int matrixSize)
         {
@@ -64,7 +65,7 @@ namespace KAMO
 
         public bool ContainsPoint(int i, int j)
         {
-            return MyI.Contains(i) && MyJ.Contains(j);
+            return _myI.Where((t, idx) => t == i && _myJ[idx] == j).Any();
         }
 
         private void FillCircuit()
@@ -73,8 +74,8 @@ namespace KAMO
             var saveJ = J;
             do
             {
-                MyI.Add(saveI);
-                MyJ.Add(saveJ);
+                _myI.Add(I);
+                _myJ.Add(J);
                 MoveForward();
                 Console.WriteLine($"{I} {J}");
             } while (saveI != I || saveJ != J);
