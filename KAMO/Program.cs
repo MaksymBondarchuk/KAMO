@@ -6,7 +6,8 @@ namespace KAMO
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var wm = new WholeMatrix(23);
+            Console.WriteLine(wm);
         }
     }
 }
