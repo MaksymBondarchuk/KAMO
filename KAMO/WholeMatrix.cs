@@ -5,18 +5,19 @@ namespace KAMO
 {
     public class WholeMatrix
     {
-        public int I { get; set; }
-        public int J { get; set; }
-        private double[,] Matrix { get; }
+        public int I { get; private set; }
+        public int J { get; private set; }
 
-        public WholeMatrix(int size)
+        private double[,] Matrix { get; }
+        private Circuit Circuit { get; set; }
+
+        public WholeMatrix(int size, int i, int j)
         {
+            I = i;
+            J = j;
             Matrix = new double[size * 30, size * 30];
-            for (var i = 0; i < Matrix.GetLength(0); i++)
-            {
-                for (var j = 0; j < Matrix.GetLength(1); j++)
-                    Matrix[i, j] = Function(i, j);
-            }
+            
+            Circuit = new Circuit(i, j, size);
         }
 
         public void Print()
@@ -60,6 +61,15 @@ namespace KAMO
         private static double Function(int i, int j)
         {
             return (.01 * j * j - .53 * i + 5.81) * Math.Sin((j + .8 * i * i) / 29);
+        }
+
+        private void FillMatrix()
+        {
+            for (var i = 0; i < Matrix.GetLength(0); i++)
+            {
+                for (var j = 0; j < Matrix.GetLength(1); j++)
+                    Matrix[i, j] = Function(i, j);
+            }
         }
     }
 }
