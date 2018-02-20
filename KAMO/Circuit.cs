@@ -37,14 +37,14 @@ namespace KAMO
             }
 
             // 3
-            if (I == 0 && 0 < J)
+            if (I == 0 && Math.Max(_matrixJ - _matrixI, 0) < J)
             {
                 J--;
                 return;
             }
 
             // 4
-            if (J == 0 && I < _matrixI - _matrixJ)
+            if (J == 0 && I < Math.Max(_matrixI - _matrixJ, 0))
             {
                 I++;
                 return;
@@ -77,7 +77,7 @@ namespace KAMO
                 _myI.Add(I);
                 _myJ.Add(J);
                 MoveForward();
-                Console.WriteLine($"{I} {J}");
+                //Console.WriteLine($"{I} {J}");
             } while (saveI != I || saveJ != J);
         }
     }
