@@ -1,16 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text;
 
 namespace KAMO
 {
     public class WholeMatrix
     {
-        private double[,] Matrix { get; set; }
+        public int I { get; set; }
+        public int J { get; set; }
+        private double[,] Matrix { get; }
 
         public WholeMatrix(int size)
         {
-            //var actualSize = size * 30;
             Matrix = new double[size * 30, size * 30];
             for (var i = 0; i < Matrix.GetLength(0); i++)
             {
@@ -29,6 +29,21 @@ namespace KAMO
             }
         }
 
+        public double Det3()
+        {
+            var a = Matrix[I - 2, J - 2];
+            var b = Matrix[I - 2, J - 1];
+            var c = Matrix[I - 2, J];
+            var d = Matrix[I - 1, J - 2];
+            var e = Matrix[I - 1, J - 1];
+            var f = Matrix[I - 1, J];
+            var g = Matrix[I, J - 2];
+            var h = Matrix[I, J - 1];
+            var i = Matrix[I, J];
+
+            return a * e * i + b * f * g + c * d * h - c * e * g - b * d * i - a * f * h;
+        }
+
         public override string ToString()
         {
             var sb = new StringBuilder();
@@ -36,7 +51,7 @@ namespace KAMO
             {
                 var sbLine = new StringBuilder();
                 for (var j = 0; j < Matrix.GetLength(1); j++)
-                    sbLine.Append($"{Matrix[i, j],8:N2}");
+                    sbLine.Append($"{Matrix[i, j],16:N2}");
                 sb.AppendLine(sbLine.ToString());
             }
             return sb.ToString();

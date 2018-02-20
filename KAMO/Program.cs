@@ -1,13 +1,23 @@
 ﻿using System;
+using System.IO;
 
 namespace KAMO
 {
-    class Program
+    internal static class Program
     {
-        static void Main(string[] args)
+        private static void Main()
         {
-            var wm = new WholeMatrix(23);
-            Console.WriteLine(wm);
+            var wm = new WholeMatrix(23)
+            {
+                I = 422,
+                J = 415
+            };
+            Console.WriteLine(wm.Det3());
+
+            using (var file = new StreamWriter("Matrix.txt"))
+            {
+                file.Write(wm);
+            }
         }
     }
 }
