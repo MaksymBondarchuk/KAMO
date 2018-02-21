@@ -15,6 +15,8 @@ namespace KAMO
         public int I { get; private set; }
         public int J { get; private set; }
 
+        public int Lenth => _myI.Count;
+
         private readonly int _matrixI;
         private readonly int _matrixJ;
         private readonly int _matrixSize;
@@ -37,7 +39,81 @@ namespace KAMO
 
         public void MoveForward()
         {
-            switch (_direction)
+            MoveInDirection(_direction);
+        }
+
+        public void MoveBackward()
+        {
+            MoveInDirection(InvertDirection(_direction));
+        }
+
+        public bool ContainsPoint(int i, int j)
+        {
+            return _myI.Where((t, idx) => t == i && _myJ[idx] == j).Any();
+        }
+
+        public void Reset()
+        {
+            I = _matrixI;
+            J = _matrixJ;
+        }
+
+        private void FillCircuit()
+        {
+            var rememberI = I;
+            var rememberJ = J;
+            do
+            {
+                _myI.Add(I);
+                _myJ.Add(J);
+                MoveForward();
+                //Console.WriteLine($"{I} {J}");
+            } while (rememberI != I || rememberJ != J);
+        }
+
+        private void GoTo(int i, int j)
+        {
+            I = i;
+            J = j;
+        }
+
+        public Tuple<int, int> GetNextN(int n)
+        {
+            n %= _myI.Count; // _myI.Count - circuit length
+            var rememberI = I;
+            var rememberJ = J;
+
+            for (var i = 0; i < n; i++)
+            {
+                MoveForward();
+            }
+
+            var result = new Tuple<int, int>(I, J);
+            I = rememberI;
+            J = rememberJ;
+            return result;
+        }
+
+        public Tuple<int, int> GetPreviousN(int n)
+        {
+            n %= _myI.Count; // _myI.Count - circuit length
+            var rememberI = I;
+            var rememberJ = J;
+
+            for (var i = 0; i < n; i++)
+            {
+                MoveBackward();
+            }
+
+            var result = new Tuple<int, int>(I, J);
+            I = rememberI;
+            J = rememberJ;
+            return result;
+        }
+
+        private void MoveInDirection(CircuitDirection direction)
+        {
+            switch (direction)
             {
                 case CircuitDirection.CounterClockwise:
                     // 2
@@ -74,7 +150,7 @@ namespace KAMO
                     J++;
                     break;
                 case CircuitDirection.Clockwise:
-                    
+
 
                     // 4
                     if (J == 0 && 0 < I)
@@ -118,22 +194,17 @@ namespace KAMO
             }
         }
 
-        public bool ContainsPoint(int i, int j)
+        private CircuitDirection InvertDirection(CircuitDirection direction)
         {
-            return _myI.Where((t, idx) => t == i && _myJ[idx] == j).Any();
-        }
-
-        private void FillCircuit()
-        {
-            var saveI = I;
-            var saveJ = J;
-            do
+            switch (direction)
             {
-                _myI.Add(I);
-                _myJ.Add(J);
-                MoveForward();
-                //Console.WriteLine($"{I} {J}");
-            } while (saveI != I || saveJ != J);
+                case CircuitDirection.Clockwise:
+                    return CircuitDirection.CounterClockwise;
+                case CircuitDirection.CounterClockwise:
+                    return CircuitDirection.CounterClockwise;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
+            }
         }
     }
 }

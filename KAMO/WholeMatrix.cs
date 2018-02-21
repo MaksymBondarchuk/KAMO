@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 
 namespace KAMO
@@ -40,6 +41,7 @@ namespace KAMO
 
                 Console.WriteLine();
             }
+            Console.WriteLine();
         }
 
         public double Det3()
@@ -56,6 +58,35 @@ namespace KAMO
             var i = Matrix[I, J];
 
             return a * e * i + b * f * g + c * d * h - c * e * g - b * d * i - a * f * h;
+        }
+
+        public void RotateForwardN(int n)
+        {
+            Console.WriteLine($"Rotating forward {n}");
+            n %= Circuit.Lenth;
+
+            Circuit.MoveBackward(); // Stay at the end
+
+            var remember = new List<Tuple<int, int, double>>();
+            for (var i = Circuit.Lenth - 1; Circuit.Lenth - 1 - n < i; i--, Circuit.MoveBackward())
+            {
+                remember.Add(new Tuple<int, int, double>(Circuit.I, Circuit.J, Matrix[Circuit.I, Circuit.J]));
+            }
+            Circuit.Reset();
+            Circuit.MoveBackward(); // Stay at the end
+
+            for (var i = Circuit.Lenth - 1; n <= i; i--, Circuit.MoveBackward())
+            {
+                var nextN = Circuit.GetPreviousN(n);
+                Matrix[Circuit.I, Circuit.J] = Matrix[nextN.Item1, nextN.Item2];
+            }
+            Circuit.Reset();
+
+            for (var i = 0; i < n; i++, Circuit.MoveForward())
+            {
+                Matrix[Circuit.I, Circuit.J] = remember[n - 1 - i].Item3;
+            }
+            Circuit.Reset();
         }
 
         public override string ToString()
