@@ -55,14 +55,7 @@ namespace KAMO
                 var sbLine = new StringBuilder();
                 for (var j = 0; j < Matrix.GetLength(1); j++)
                 {
-                    if (Circuit.ContainsPoint(i, j))
-                    {
-                        sbLine.Append($"*{Matrix[i, j],-15:N2}");
-                    }
-                    else
-                    {
-                        sbLine.Append($" {Matrix[i, j],-15:N2}");
-                    }
+                    sbLine.Append(Circuit.ContainsPoint(i, j) ? $"*{Matrix[i, j],-15:N2}" : $" {Matrix[i, j],-15:N2}");
                 }
                 sb.AppendLine(sbLine.ToString());
             }
