@@ -19,7 +19,7 @@ namespace KAMO
             Matrix = new double[10, 10];
             FillMatrix();
 
-            Circuit = new Circuit(i, j, size);
+            Circuit = new Circuit(i, j, size, CircuitDirection.Clockwise);
         }
 
         public void Print()
@@ -27,13 +27,24 @@ namespace KAMO
             for (var i = 0; i < Matrix.GetLength(0); i++)
             {
                 for (var j = 0; j < Matrix.GetLength(1); j++)
-                    Console.Write($"{Matrix[i, j],8:N2}");
+                    if (Circuit.ContainsPoint(i, j))
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.Write($"*{Matrix[i, j],-8:N2}");
+                        Console.ForegroundColor = ConsoleColor.Gray;
+                    }
+                    else
+                    {
+                        Console.Write($" {Matrix[i, j],-8:N2}");
+                    }
+
                 Console.WriteLine();
             }
         }
 
         public double Det3()
         {
+            //return 666;
             var a = Matrix[I - 2, J - 2];
             var b = Matrix[I - 2, J - 1];
             var c = Matrix[I - 2, J];
