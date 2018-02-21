@@ -64,6 +64,7 @@ namespace KAMO
         {
             Console.WriteLine($"Rotating forward {n}");
             n %= Circuit.Lenth;
+            Console.WriteLine($"Actual rotation = {n}");
 
             Circuit.MoveBackward(); // Stay at the end
 
@@ -77,14 +78,40 @@ namespace KAMO
 
             for (var i = Circuit.Lenth - 1; n <= i; i--, Circuit.MoveBackward())
             {
-                var nextN = Circuit.GetPreviousN(n);
-                Matrix[Circuit.I, Circuit.J] = Matrix[nextN.Item1, nextN.Item2];
+                var previousN = Circuit.GetPreviousN(n);
+                Matrix[Circuit.I, Circuit.J] = Matrix[previousN.Item1, previousN.Item2];
             }
             Circuit.Reset();
 
             for (var i = 0; i < n; i++, Circuit.MoveForward())
             {
                 Matrix[Circuit.I, Circuit.J] = remember[n - 1 - i].Item3;
+            }
+            Circuit.Reset();
+        }
+
+        public void RotateBackwardN(int n)
+        {
+            Console.WriteLine($"Rotating backward {n}");
+            n %= Circuit.Lenth;
+            Console.WriteLine($"Actual rotation = {n}");
+
+            var remember = new List<Tuple<int, int, double>>();
+            for (var i = 0; i < n; i++, Circuit.MoveForward())
+            {
+                remember.Add(new Tuple<int, int, double>(Circuit.I, Circuit.J, Matrix[Circuit.I, Circuit.J]));
+            }
+            Circuit.Reset();
+
+            for (var i = 0; i < Circuit.Lenth - n; i++, Circuit.MoveForward())
+            {
+                var nextN = Circuit.GetNextN(n);
+                Matrix[Circuit.I, Circuit.J] = Matrix[nextN.Item1, nextN.Item2];
+            }
+
+            for (var i = Circuit.Lenth - n; i < Circuit.Lenth; i++, Circuit.MoveForward())
+            {
+                Matrix[Circuit.I, Circuit.J] = remember[i - (Circuit.Lenth - n)].Item3;
             }
             Circuit.Reset();
         }

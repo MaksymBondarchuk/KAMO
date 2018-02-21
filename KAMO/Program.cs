@@ -10,7 +10,7 @@ namespace KAMO
             var wm = new WholeMatrix(10, 8, 6);
             Console.WriteLine(wm.Det3());
             wm.Print();
-            wm.RotateForwardN(3);
+            wm.RotateBackwardN(3);
             wm.Print();
 
             using (var file = new StreamWriter("Matrix.txt"))
