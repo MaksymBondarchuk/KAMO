@@ -68,10 +68,10 @@ namespace KAMO
 
             Circuit.MoveBackward(); // Stay at the end
 
-            var remember = new List<Tuple<int, int, double>>();
+            var remember = new List<double>();
             for (var i = Circuit.Lenth - 1; Circuit.Lenth - 1 - n < i; i--, Circuit.MoveBackward())
             {
-                remember.Add(new Tuple<int, int, double>(Circuit.I, Circuit.J, Matrix[Circuit.I, Circuit.J]));
+                remember.Add(Matrix[Circuit.I, Circuit.J]);
             }
             Circuit.Reset();
             Circuit.MoveBackward(); // Stay at the end
@@ -85,7 +85,7 @@ namespace KAMO
 
             for (var i = 0; i < n; i++, Circuit.MoveForward())
             {
-                Matrix[Circuit.I, Circuit.J] = remember[n - 1 - i].Item3;
+                Matrix[Circuit.I, Circuit.J] = remember[n - 1 - i];
             }
             Circuit.Reset();
         }
@@ -96,10 +96,10 @@ namespace KAMO
             n %= Circuit.Lenth;
             Console.WriteLine($"Actual rotation = {n}");
 
-            var remember = new List<Tuple<int, int, double>>();
+            var remember = new List<double>();
             for (var i = 0; i < n; i++, Circuit.MoveForward())
             {
-                remember.Add(new Tuple<int, int, double>(Circuit.I, Circuit.J, Matrix[Circuit.I, Circuit.J]));
+                remember.Add(Matrix[Circuit.I, Circuit.J]);
             }
             Circuit.Reset();
 
@@ -111,9 +111,31 @@ namespace KAMO
 
             for (var i = Circuit.Lenth - n; i < Circuit.Lenth; i++, Circuit.MoveForward())
             {
-                Matrix[Circuit.I, Circuit.J] = remember[i - (Circuit.Lenth - n)].Item3;
+                Matrix[Circuit.I, Circuit.J] = remember[i - (Circuit.Lenth - n)];
             }
             Circuit.Reset();
+        }
+
+        public void Sort()
+        {
+            bool wasSwap;
+            do
+            {
+                wasSwap = false;
+                for (var i = 0; i < Circuit.Lenth - 1; i++, Circuit.MoveForward())
+                {
+                    var next = Circuit.GetNextN(1);
+                    if (Matrix[Circuit.I, Circuit.J] > Matrix[next.Item1, next.Item2])
+                    {
+                        var tmp = Matrix[Circuit.I, Circuit.J];
+                        Matrix[Circuit.I, Circuit.J] = Matrix[next.Item1, next.Item2];
+                        Matrix[next.Item1, next.Item2] = tmp;
+
+                        wasSwap = true;
+                    }
+                }
+                Circuit.Reset();
+            } while (wasSwap);
         }
 
         public override string ToString()
