@@ -47,14 +47,14 @@ namespace KAMO
         public double Det3()
         {
             //return 666;
-            var a = Matrix[I - 2, J - 2];
-            var b = Matrix[I - 2, J - 1];
+            var a = Matrix[I - 2, J + 2];
+            var b = Matrix[I - 2, J + 1];
             var c = Matrix[I - 2, J];
-            var d = Matrix[I - 1, J - 2];
-            var e = Matrix[I - 1, J - 1];
+            var d = Matrix[I - 1, J + 2];
+            var e = Matrix[I - 1, J + 1];
             var f = Matrix[I - 1, J];
-            var g = Matrix[I, J - 2];
-            var h = Matrix[I, J - 1];
+            var g = Matrix[I, J + 2];
+            var h = Matrix[I, J + 1];
             var i = Matrix[I, J];
 
             return a * e * i + b * f * g + c * d * h - c * e * g - b * d * i - a * f * h;
