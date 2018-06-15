@@ -19,10 +19,10 @@ namespace KAMO
 			Console.WriteLine();
 			//wm.Print();
 
-			using (var file = new StreamWriter("Matrix.txt"))
-            {
-                file.Write(wm);
-            }
+			//using (var file = new StreamWriter("Matrix.txt"))
+   //         {
+   //             file.Write(wm);
+   //         }
         }
     }
 }

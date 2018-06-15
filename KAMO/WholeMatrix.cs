@@ -58,17 +58,17 @@ namespace KAMO
 			var h = Matrix[I, J - 1];
 			var i = Matrix[I, J];
 
-			Console.Write($"{a,-8:N4}");
-			Console.Write($"{b,-8:N4}");
-			Console.Write($"{c,-8:N4}");
+			Console.Write($"{a,-12:N4}");
+			Console.Write($"{b,-12:N4}");
+			Console.Write($"{c,-12:N4}");
 			Console.WriteLine();
-			Console.Write($"{d,-8:N4}");
-			Console.Write($"{e,-8:N4}");
-			Console.Write($"{f,-8:N4}");
+			Console.Write($"{d,-12:N4}");
+			Console.Write($"{e,-12:N4}");
+			Console.Write($"{f,-12:N4}");
 			Console.WriteLine();
-			Console.Write($"{g,-8:N4}");
-			Console.Write($"{h,-8:N4}");
-			Console.Write($"{i,-8:N4}");
+			Console.Write($"{g,-12:N4}");
+			Console.Write($"{h,-12:N4}");
+			Console.Write($"{i,-12:N4}");
 			Console.WriteLine();
 		}
 
