@@ -7,7 +7,7 @@ namespace KAMO
     {
         private static void Main()
         {
-            var wm = new WholeMatrix(size: 27, i: 396, j: 384);
+            var wm = new WholeMatrix(size: 27, i: 395, j: 383);
 			//wm.Print();
 			//wm.RotateForwardN(3);
 			wm.PrintDet3();
@@ -19,10 +19,10 @@ namespace KAMO
 			Console.WriteLine();
 			//wm.Print();
 
-			//using (var file = new StreamWriter("Matrix.txt"))
-   //         {
-   //             file.Write(wm);
-   //         }
+			using (var file = new StreamWriter("Matrix.txt"))
+            {
+                file.Write(wm);
+            }
         }
     }
 }

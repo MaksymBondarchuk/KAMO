@@ -48,6 +48,8 @@ namespace KAMO
 
 		public void PrintDet3()
 		{
+			//I = I - 1;
+			//J = J - 1;
 			var a = Matrix[I - 2, J - 2];
 			var b = Matrix[I - 2, J - 1];
 			var c = Matrix[I - 2, J];
@@ -57,7 +59,8 @@ namespace KAMO
 			var g = Matrix[I, J - 2];
 			var h = Matrix[I, J - 1];
 			var i = Matrix[I, J];
-
+			//I++;
+			//J++;
 			Console.Write($"{a,-12:N4}");
 			Console.Write($"{b,-12:N4}");
 			Console.Write($"{c,-12:N4}");
@@ -75,6 +78,8 @@ namespace KAMO
 		public double Det3()
 		{
 			//return 666;
+			//I = I - 1;
+			//J = J - 1;
 			var a = Matrix[I - 2, J - 2];
 			var b = Matrix[I - 2, J - 1];
 			var c = Matrix[I - 2, J];
@@ -84,7 +89,8 @@ namespace KAMO
 			var g = Matrix[I, J - 2];
 			var h = Matrix[I, J - 1];
 			var i = Matrix[I, J];
-
+			//I++;
+			//J++;
 			return a * e * i + b * f * g + c * d * h - c * e * g - b * d * i - a * f * h;
 		}
 
@@ -146,6 +152,8 @@ namespace KAMO
 
 		public void Sort()
 		{
+			//I = I - 1;
+			//J = J - 1;
 			bool wasSwap;
 			do
 			{
@@ -164,6 +172,9 @@ namespace KAMO
 				}
 				Circuit.Reset();
 			} while (wasSwap);
+
+			//I++;
+			//J++;
 		}
 
 		public override string ToString()
@@ -183,6 +194,10 @@ namespace KAMO
 
 		private static double Function(int i, int j)
 		{
+			//i--;
+			//j--;
+			//return (i + 0) * Math.Sin(1 / (double)(i + 0)) +
+			//	   (j + 0) * Math.Cos((i + 0 + 3.14 * (j + 0)) / (j + 0));
 			return (i + 1) * Math.Sin(1 / (double)(i + 1)) +
 				   (j + 1) * Math.Cos((i + 1 + 3.14 * (j + 1)) / (j + 1));
 		}
